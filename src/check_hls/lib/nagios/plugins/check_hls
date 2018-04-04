@@ -236,7 +236,9 @@ class CheckHls():
 
         #self.ec.printv("Parsing line: \"{}\"".format(line))
         if ":" in line:
-            metaname, payload = line.split(":", 2)
+            arrsplt = line.split(":")
+            metaname = arrsplt[0]
+            payload = arrsplt[1]
         else:
             metaname = line
             payload  = ""
@@ -383,6 +385,7 @@ class CheckHls():
                     #EXT-X-TARGETDURATION:11     = max length over all segments
 
                     extinf = metadata['EXTINF']
+                    extinf = extinf.replace(' no-desc', '')
                     if extinf[-1] == ',':
                         extinf = extinf[:-1]
                     segment_urls.append([suburl, float(extinf)])
